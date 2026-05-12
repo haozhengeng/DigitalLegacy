@@ -1,0 +1,50 @@
+from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel
+
+CATEGORY_CHOICES = [
+    "bank", "crypto", "insurance", "social",
+    "email", "cloud", "subscription", "instruction", "other",
+]
+
+class VaultItemCreate(BaseModel):
+    title: str
+    category: str = "other"
+    sub_category: str = ""
+    encrypted_content: str = ""
+    encrypted_note: str = ""
+    platform_name: str = ""
+    platform_url: str = ""
+    account_name: str = ""
+    importance: int = 1
+    is_legacy: bool = False
+
+class VaultItemUpdate(BaseModel):
+    title: Optional[str] = None
+    category: Optional[str] = None
+    sub_category: Optional[str] = None
+    encrypted_content: Optional[str] = None
+    encrypted_note: Optional[str] = None
+    platform_name: Optional[str] = None
+    platform_url: Optional[str] = None
+    account_name: Optional[str] = None
+    importance: Optional[int] = None
+    is_legacy: Optional[bool] = None
+
+class VaultItemResponse(BaseModel):
+    id: str
+    user_id: str
+    title: str
+    category: str
+    sub_category: str
+    encrypted_content: str
+    encrypted_note: str
+    platform_name: str
+    platform_url: str
+    account_name: str
+    importance: int
+    is_legacy: bool
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = {"from_attributes": True}
