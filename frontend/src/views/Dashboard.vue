@@ -35,7 +35,7 @@
                 </template>
               </el-table-column>
               <el-table-column prop="updated_at" label="时间" width="100">
-                <template #default="{ row }">{{ row.updated_at?.slice(5, 16) }}</template>
+                <template #default="{ row }">{{ formatDateCN(row.updated_at) }}</template>
               </el-table-column>
             </el-table>
           </div>
@@ -71,6 +71,7 @@ import { vaultApi } from '@/api/vault'
 import { beneficiariesApi } from '@/api/beneficiaries'
 import { emotionalApi } from '@/api/emotional'
 import { triggerApi, type TriggerStatus } from '@/api/trigger'
+import { formatDateCN } from '@/utils/time'
 
 const loading = ref(false)
 const recentItems = ref<any[]>([])

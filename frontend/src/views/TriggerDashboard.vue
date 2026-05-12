@@ -116,7 +116,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { triggerApi, type TriggerConfig, type TriggerStatus, type TriggerLog } from '@/api/trigger'
-import dayjs from 'dayjs'
+import { formatDateCN } from '@/utils/time'
 
 const config = ref<TriggerConfig>({
   is_enabled: true, inactivity_days: 90, check_in_interval_days: 90,
@@ -152,7 +152,7 @@ function progressFormat(pct: number) {
 }
 
 function formatTime(t: string) {
-  return t ? dayjs(t).format('MM-DD HH:mm') : ''
+  return formatDateCN(t)
 }
 
 async function loadData() {
