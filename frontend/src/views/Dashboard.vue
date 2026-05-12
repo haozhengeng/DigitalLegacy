@@ -12,8 +12,8 @@
       </div>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="6" v-for="stat in stats" :key="stat.label">
+    <el-row :gutter="[16, 16]">
+      <el-col :xs="12" :sm="12" :md="6" v-for="stat in stats" :key="stat.label">
         <el-card shadow="hover" class="stat-card" @click="$router.push(stat.path)">
           <div class="stat-icon" :style="{ color: stat.color }">{{ stat.icon }}</div>
           <div class="stat-value">{{ stat.count }}</div>
@@ -22,36 +22,40 @@
       </el-col>
     </el-row>
 
-    <el-row :gutter="20" style="margin-top: 24px">
-      <el-col :span="14">
+    <el-row :gutter="[16, 16]" style="margin-top: 16px">
+      <el-col :xs="24" :sm="24" :md="14">
         <el-card class="section-card">
           <template #header>最近添加</template>
-          <el-table :data="recentItems" style="width: 100%" v-loading="loading" stripe>
-            <el-table-column prop="title" label="名称" min-width="160" />
-            <el-table-column label="分类" width="100">
-              <template #default="{ row }">
-                <el-tag :type="tagType(row.category)" size="small">{{ labelMap[row.category] || row.category }}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column prop="updated_at" label="更新时间" width="160" />
-          </el-table>
+          <div class="table-wrapper">
+            <el-table :data="recentItems" style="width: 100%" v-loading="loading" stripe size="small">
+              <el-table-column prop="title" label="名称" min-width="120" />
+              <el-table-column label="分类" width="80">
+                <template #default="{ row }">
+                  <el-tag :type="tagType(row.category)" size="small">{{ labelMap[row.category] || row.category }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="updated_at" label="时间" width="100">
+                <template #default="{ row }">{{ row.updated_at?.slice(5, 16) }}</template>
+              </el-table-column>
+            </el-table>
+          </div>
           <el-empty v-if="!recentItems.length && !loading" description="暂无数据，前往保险箱添加" />
         </el-card>
       </el-col>
-      <el-col :span="10">
+      <el-col :xs="24" :sm="24" :md="10">
         <el-card class="section-card">
           <template #header>快捷操作</template>
           <div class="quick-actions">
-            <el-button type="primary" size="large" class="action-btn" @click="$router.push('/vault')">
+            <el-button type="primary" size="default" class="action-btn" @click="$router.push('/vault')">
               <el-icon><Plus /></el-icon> 添加资产
             </el-button>
-            <el-button type="success" size="large" class="action-btn" @click="$router.push('/emotional')">
+            <el-button type="success" size="default" class="action-btn" @click="$router.push('/emotional')">
               <el-icon><Plus /></el-icon> 写封信
             </el-button>
-            <el-button type="warning" size="large" class="action-btn" @click="$router.push('/beneficiaries')">
+            <el-button type="warning" size="default" class="action-btn" @click="$router.push('/beneficiaries')">
               <el-icon><Plus /></el-icon> 添加受益人
             </el-button>
-            <el-button size="large" class="action-btn" style="background:#6b7c93;color:#fff" @click="$router.push('/trigger')">
+            <el-button size="default" class="action-btn" style="background:#6b7c93;color:#fff" @click="$router.push('/trigger')">
               <el-icon><Select /></el-icon> 安全打卡
             </el-button>
           </div>
@@ -143,4 +147,14 @@ onMounted(loadData)
 .section-card { height: 100%; }
 .quick-actions { display: flex; flex-direction: column; gap: 12px; }
 .action-btn { width: 100%; }
+.table-wrapper { overflow-x: auto; }
+
+@media (max-width: 768px) {
+  .welcome-card { padding: 20px; border-radius: 12px; margin-bottom: 16px; }
+  .welcome-card h2 { font-size: 20px; }
+  .welcome-card p { font-size: 13px; }
+  .checkin-reminder { font-size: 13px; padding: 8px 12px; }
+  .stat-value { font-size: 24px; }
+  .stat-icon { font-size: 22px; }
+}
 </style>

@@ -2,8 +2,8 @@
   <div class="settings-page">
     <h3 class="page-title">⚙️ 安全设置</h3>
 
-    <el-row :gutter="20">
-      <el-col :span="12">
+    <el-row :gutter="[16, 16]">
+      <el-col :xs="24" :md="12">
         <el-card class="setting-card">
           <template #header>个人资料</template>
           <el-form :model="profile" label-width="100px">
@@ -36,7 +36,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="12">
+      <el-col :xs="24" :md="12">
         <el-card class="setting-card">
           <template #header>
             多因子认证 (MFA)
@@ -182,5 +182,10 @@ onMounted(loadProfile)
 }
 .fragment-item code {
   word-break: break-all; font-size: 12px; color: #e6a23c;
+}
+
+@media (max-width: 768px) {
+  .page-title { margin-bottom: 16px; }
+  :deep(.el-form-item) { margin-bottom: 14px; }
 }
 </style>

@@ -4,8 +4,8 @@
       <h3 class="page-title">🛡️ 生命开关</h3>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="16">
+    <el-row :gutter="[16, 16]">
+      <el-col :xs="24" :md="16">
         <el-card class="status-card">
           <template #header>
             <span>守护状态</span>
@@ -74,7 +74,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :xs="24" :md="8">
         <el-card class="config-card">
           <template #header>触发设置</template>
           <el-form label-width="120px">
@@ -240,4 +240,11 @@ onMounted(loadData)
 }
 .log-item:last-child { border-bottom: none; }
 .log-time { color: #909399; }
+
+@media (max-width: 768px) {
+  .status-details { grid-template-columns: 1fr; }
+  .status-actions { flex-direction: column; align-items: stretch; }
+  .stage-icon { font-size: 40px; }
+  .stage-text { font-size: 17px; }
+}
 </style>

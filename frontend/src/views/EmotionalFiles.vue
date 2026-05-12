@@ -7,8 +7,8 @@
       </el-button>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="8" v-for="item in list" :key="item.id">
+    <el-row :gutter="[16, 16]">
+      <el-col :xs="24" :sm="12" :md="8" v-for="item in list" :key="item.id">
         <el-card shadow="hover" class="emo-card">
           <div class="emo-icon">
             {{ item.file_type === 'letter' ? '📝' : item.file_type === 'voice' ? '🎤' : item.file_type === 'video' ? '🎬' : '📁' }}
@@ -146,4 +146,10 @@ onMounted(loadData)
 .emo-title { font-size: 16px; font-weight: 600; color: #303133; margin-bottom: 8px; }
 .emo-meta { margin-bottom: 12px; display: flex; gap: 6px; justify-content: center; }
 .emo-footer { border-top: 1px solid #f0f0f0; padding-top: 12px; }
+.emo-card { margin-bottom: 0; }
+
+@media (max-width: 768px) {
+  .page-header { flex-wrap: wrap; gap: 8px; }
+  .page-header .el-button { width: 100%; }
+}
 </style>

@@ -8,50 +8,52 @@
     </div>
 
     <el-card class="filter-bar" shadow="never">
-      <el-radio-group v-model="categoryFilter" @change="loadItems">
-        <el-radio-button value="">全部</el-radio-button>
-        <el-radio-button value="bank">银行</el-radio-button>
-        <el-radio-button value="crypto">加密货币</el-radio-button>
-        <el-radio-button value="insurance">保险</el-radio-button>
-        <el-radio-button value="social">社交</el-radio-button>
-        <el-radio-button value="email">邮箱</el-radio-button>
-        <el-radio-button value="cloud">云服务</el-radio-button>
-        <el-radio-button value="instruction">关键指令</el-radio-button>
-        <el-radio-button value="other">其他</el-radio-button>
-      </el-radio-group>
+      <div class="filter-scroll">
+        <el-radio-group v-model="categoryFilter" @change="loadItems">
+          <el-radio-button value="">全部</el-radio-button>
+          <el-radio-button value="bank">银行</el-radio-button>
+          <el-radio-button value="crypto">加密货币</el-radio-button>
+          <el-radio-button value="insurance">保险</el-radio-button>
+          <el-radio-button value="social">社交</el-radio-button>
+          <el-radio-button value="email">邮箱</el-radio-button>
+          <el-radio-button value="cloud">云服务</el-radio-button>
+          <el-radio-button value="instruction">关键指令</el-radio-button>
+          <el-radio-button value="other">其他</el-radio-button>
+        </el-radio-group>
+      </div>
     </el-card>
 
-    <el-table :data="items" v-loading="loading" style="width: 100%" stripe>
-      <el-table-column prop="title" label="名称" min-width="180" />
-      <el-table-column label="分类" width="100">
-        <template #default="{ row }">
-          <el-tag :type="categoryType(row.category)" size="small">{{ categoryLabel(row.category) }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="platform_name" label="平台" width="140" />
-      <el-table-column prop="account_name" label="账号" width="160" />
-      <el-table-column label="重要" width="100">
-        <template #default="{ row }">
-          <el-rate v-model="row.importance" disabled :max="5" size="small" />
-        </template>
-      </el-table-column>
-      <el-table-column label="传承" width="80">
-        <template #default="{ row }">
-          <el-tag :type="row.is_legacy ? 'success' : 'info'" size="small">
-            {{ row.is_legacy ? '是' : '否' }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="160" fixed="right">
-        <template #default="{ row }">
-          <el-button text type="primary" size="small" @click="editItem(row)">编辑</el-button>
-          <el-button text type="danger" size="small" @click="handleDelete(row)">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div class="table-wrapper">
+      <el-table :data="items" v-loading="loading" style="width: 100%" stripe size="small">
+        <el-table-column prop="title" label="名称" min-width="140" />
+        <el-table-column label="分类" width="76">
+          <template #default="{ row }">
+            <el-tag :type="categoryType(row.category)" size="small">{{ categoryLabel(row.category) }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="platform_name" label="平台" min-width="100" />
+        <el-table-column prop="account_name" label="账号" min-width="120" />
+        <el-table-column label="重要" width="86">
+          <template #default="{ row }">
+            <el-rate v-model="row.importance" disabled :max="5" size="small" />
+          </template>
+        </el-table-column>
+        <el-table-column label="传承" width="60">
+          <template #default="{ row }">
+            <el-tag :type="row.is_legacy ? 'success' : 'info'" size="small">{{ row.is_legacy ? '是' : '否' }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="130" fixed="right">
+          <template #default="{ row }">
+            <el-button text type="primary" size="small" @click="editItem(row)">编辑</el-button>
+            <el-button text type="danger" size="small" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <el-empty v-if="!items.length && !loading" description="保险箱为空，点击右上角添加条目" />
 
-    <el-dialog v-model="showDialog" :title="editingId ? '编辑条目' : '添加条目'" width="600px">
+    <el-dialog v-model="showDialog" :title="editingId ? '编辑条目' : '添加条目'" width="600px" class="responsive-dialog" destroy-on-close>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="标题" prop="title">
           <el-input v-model="form.title" placeholder="例如：工商银行储蓄卡 / 比特币钱包" />
@@ -199,4 +201,15 @@ onMounted(loadItems)
 }
 .page-title { margin: 0; color: #303133; }
 .filter-bar { margin-bottom: 16px; }
+.filter-scroll { overflow-x: auto; white-space: nowrap; padding-bottom: 4px; }
+.table-wrapper { overflow-x: auto; }
+
+@media (max-width: 768px) {
+  .page-header { flex-wrap: wrap; gap: 8px; }
+  .page-header .el-button { width: 100%; }
+}
+@media (max-width: 640px) {
+  :deep(.responsive-dialog) { width: 92% !important; max-width: 92% !important; }
+  :deep(.responsive-dialog .el-dialog__body) { padding: 16px; }
+}
 </style>

@@ -7,8 +7,8 @@
       </el-button>
     </div>
 
-    <el-row :gutter="20">
-      <el-col :span="8" v-for="b in list" :key="b.id">
+    <el-row :gutter="[16, 16]">
+      <el-col :xs="24" :sm="12" :md="8" v-for="b in list" :key="b.id">
         <el-card shadow="hover" class="ben-card">
           <div class="card-header">
             <el-avatar :size="48" class="avatar">{{ b.name.charAt(0) }}</el-avatar>
@@ -172,4 +172,10 @@ onMounted(loadList)
   padding-top: 12px; border-top: 1px solid #f0f0f0;
 }
 .perm-hint { color: #909399; font-size: 12px; margin-top: 4px; }
+.ben-card { margin-bottom: 0; }
+
+@media (max-width: 768px) {
+  .page-header { flex-wrap: wrap; gap: 8px; }
+  .page-header .el-button { width: 100%; }
+}
 </style>

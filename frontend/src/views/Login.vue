@@ -108,8 +108,10 @@ async function handleLogin() {
   color: #909399;
   font-size: 14px;
 }
-.footer a {
-  color: #409eff;
-  text-decoration: none;
+.footer a { color: #409eff; text-decoration: none; }
+
+@media (max-width: 480px) {
+  .login-card { width: 88%; padding: 28px 20px; border-radius: 12px; }
+  .title { font-size: 24px; }
 }
 </style>
