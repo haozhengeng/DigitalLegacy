@@ -3,6 +3,7 @@
     <h3 class="page-title">⚙️ 安全设置</h3>
 
     <el-row :gutter="[16, 16]">
+      <!-- 左侧：个人资料 + 紧急联系人 -->
       <el-col :xs="24" :md="12">
         <el-card class="setting-card">
           <template #header>个人资料</template>
@@ -36,6 +37,7 @@
         </el-card>
       </el-col>
 
+      <!-- 右侧：MFA + 无活动期限 + 密钥分片 -->
       <el-col :xs="24" :md="12">
         <el-card class="setting-card">
           <template #header>

@@ -1,5 +1,6 @@
 <template>
   <div class="emotional-page">
+    <!-- 页面标题 -->
     <div class="page-header">
       <h3 class="page-title">💌 情感档案</h3>
       <el-button type="primary" @click="showDialog = true">
@@ -7,6 +8,7 @@
       </el-button>
     </div>
 
+    <!-- 情感档案卡片列表 -->
     <el-row :gutter="[16, 16]">
       <el-col :xs="24" :sm="12" :md="8" v-for="item in list" :key="item.id">
         <el-card shadow="hover" class="emo-card">
@@ -28,6 +30,7 @@
     </el-row>
     <el-empty v-if="!list.length" description="暂无情感档案，为重要的人留下一些话吧" />
 
+    <!-- 新增/编辑弹窗 -->
     <el-dialog v-model="showDialog" :title="editingId ? '编辑档案' : '创建情感档案'" width="550px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="标题" prop="title">

@@ -17,6 +17,7 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: AsyncSession = Depends(get_db),
 ) -> User:
+    """FastAPI 依赖注入：从 JWT 中解析并验证当前用户"""
     token = credentials.credentials
     payload = decode_access_token(token)
     if payload is None:

@@ -23,6 +23,7 @@ async def get_config(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取生命开关配置，如不存在则创建默认配置"""
     result = await db.execute(
         select(TriggerConfig).where(TriggerConfig.user_id == current_user.id)
     )
@@ -41,6 +42,7 @@ async def update_config(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """更新生命开关配置"""
     result = await db.execute(
         select(TriggerConfig).where(TriggerConfig.user_id == current_user.id)
     )
@@ -61,6 +63,7 @@ async def check_in(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """安全打卡：重置生命开关计时，清除触发状态"""
     now = datetime.utcnow()
     result = await db.execute(
         select(TriggerConfig).where(TriggerConfig.user_id == current_user.id)
@@ -86,6 +89,7 @@ async def get_trigger_status(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取生命开关状态：守护期 / 预警期 / 交付期 / 已紧急撤回"""
     result = await db.execute(
         select(TriggerConfig).where(TriggerConfig.user_id == current_user.id)
     )
@@ -133,6 +137,7 @@ async def emergency_recall(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """紧急撤回：立即终止所有触发流程"""
     result = await db.execute(
         select(TriggerConfig).where(TriggerConfig.user_id == current_user.id)
     )
@@ -158,6 +163,7 @@ async def get_logs(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取生命开关事件日志（最近 50 条）"""
     result = await db.execute(
         select(TriggerLog).where(TriggerLog.user_id == current_user.id)
         .order_by(TriggerLog.created_at.desc()).limit(50)

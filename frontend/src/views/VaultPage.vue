@@ -1,5 +1,6 @@
 <template>
   <div class="vault-page">
+    <!-- 页面标题 + 添加按钮 -->
     <div class="page-header">
       <h3 class="page-title">🔐 保险箱</h3>
       <el-button type="primary" @click="showDialog = true">
@@ -7,6 +8,7 @@
       </el-button>
     </div>
 
+    <!-- 分类筛选 -->
     <el-card class="filter-bar" shadow="never">
       <div class="filter-scroll">
         <el-radio-group v-model="categoryFilter" @change="loadItems">
@@ -23,6 +25,7 @@
       </div>
     </el-card>
 
+    <!-- 条目列表 -->
     <div class="table-wrapper">
       <el-table :data="items" v-loading="loading" style="width: 100%" stripe size="small">
         <el-table-column prop="title" label="名称" min-width="140" />
@@ -53,6 +56,7 @@
     </div>
     <el-empty v-if="!items.length && !loading" description="保险箱为空，点击右上角添加条目" />
 
+    <!-- 新增/编辑弹窗 -->
     <el-dialog v-model="showDialog" :title="editingId ? '编辑条目' : '添加条目'" width="600px" class="responsive-dialog" destroy-on-close>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="标题" prop="title">

@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class User(Base):
+    """用户模型：存储账号信息、安全设置及关联关系"""
     __tablename__ = "users"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

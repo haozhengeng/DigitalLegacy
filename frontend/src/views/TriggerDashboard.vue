@@ -5,6 +5,7 @@
     </div>
 
     <el-row :gutter="[16, 16]">
+      <!-- 左侧：守护状态 + 触发流程时间线 -->
       <el-col :xs="24" :md="16">
         <el-card class="status-card">
           <template #header>
@@ -74,6 +75,7 @@
         </el-card>
       </el-col>
 
+      <!-- 右侧：触发配置 + 活动日志 -->
       <el-col :xs="24" :md="8">
         <el-card class="config-card">
           <template #header>触发设置</template>

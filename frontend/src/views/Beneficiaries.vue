@@ -1,5 +1,6 @@
 <template>
   <div class="beneficiaries-page">
+    <!-- 页面标题 -->
     <div class="page-header">
       <h3 class="page-title">👨‍👩‍👧 受益人</h3>
       <el-button type="primary" @click="showDialog = true">
@@ -7,6 +8,7 @@
       </el-button>
     </div>
 
+    <!-- 受益人卡片列表 -->
     <el-row :gutter="[16, 16]">
       <el-col :xs="24" :sm="12" :md="8" v-for="b in list" :key="b.id">
         <el-card shadow="hover" class="ben-card">
@@ -41,6 +43,7 @@
     </el-row>
     <el-empty v-if="!list.length" description="暂无受益人，邀请信任的人作为您的数字遗产继承人" />
 
+    <!-- 新增/编辑弹窗 -->
     <el-dialog v-model="showDialog" :title="editingId ? '编辑受益人' : '邀请受益人'" width="550px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="姓名" prop="name">

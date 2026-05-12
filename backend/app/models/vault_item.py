@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class VaultItem(Base):
+    """保险箱条目模型：存储用户各类数字资产的加密信息"""
     __tablename__ = "vault_items"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

@@ -17,6 +17,7 @@ async def list_beneficiaries(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取受益人列表"""
     result = await db.execute(
         select(Beneficiary).where(Beneficiary.user_id == current_user.id)
         .order_by(Beneficiary.created_at.desc())
@@ -30,6 +31,7 @@ async def create_beneficiary(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """添加受益人"""
     beneficiary = Beneficiary(**data.model_dump(), user_id=current_user.id)
     db.add(beneficiary)
     await db.commit()
@@ -44,6 +46,7 @@ async def update_beneficiary(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """更新受益人信息"""
     result = await db.execute(
         select(Beneficiary).where(Beneficiary.id == beneficiary_id, Beneficiary.user_id == current_user.id)
     )
@@ -65,6 +68,7 @@ async def verify_beneficiary(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """实名认证受益人（通过身份证号）"""
     result = await db.execute(
         select(Beneficiary).where(Beneficiary.id == beneficiary_id, Beneficiary.user_id == current_user.id)
     )
@@ -84,6 +88,7 @@ async def delete_beneficiary(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """删除受益人"""
     result = await db.execute(
         select(Beneficiary).where(Beneficiary.id == beneficiary_id, Beneficiary.user_id == current_user.id)
     )

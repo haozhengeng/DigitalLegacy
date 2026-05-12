@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class EmotionalFile(Base):
+    """情感档案模型：存储用户留给受益人的信件/语音/视频等内容"""
     __tablename__ = "emotional_files"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

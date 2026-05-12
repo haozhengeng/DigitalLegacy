@@ -18,6 +18,7 @@ async def list_files(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取情感档案列表，支持按类型筛选"""
     query = select(EmotionalFile).where(EmotionalFile.user_id == current_user.id)
     if file_type:
         query = query.where(EmotionalFile.file_type == file_type)
@@ -32,6 +33,7 @@ async def create_file(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """创建情感档案（信件/语音/视频等）"""
     ef = EmotionalFile(**data.model_dump(), user_id=current_user.id)
     db.add(ef)
     await db.commit()
@@ -45,6 +47,7 @@ async def get_file(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取单个情感档案详情"""
     result = await db.execute(
         select(EmotionalFile).where(EmotionalFile.id == file_id, EmotionalFile.user_id == current_user.id)
     )
@@ -61,6 +64,7 @@ async def update_file(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """更新情感档案"""
     result = await db.execute(
         select(EmotionalFile).where(EmotionalFile.id == file_id, EmotionalFile.user_id == current_user.id)
     )
@@ -81,6 +85,7 @@ async def delete_file(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """删除情感档案"""
     result = await db.execute(
         select(EmotionalFile).where(EmotionalFile.id == file_id, EmotionalFile.user_id == current_user.id)
     )

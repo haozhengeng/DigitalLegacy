@@ -3,6 +3,7 @@ from typing import Optional
 
 
 class Settings(BaseSettings):
+    """应用配置，支持从 .env 文件读取"""
     APP_NAME: str = "DigitalLegacy"
     DEBUG: bool = True
 

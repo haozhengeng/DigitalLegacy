@@ -8,6 +8,7 @@ CATEGORY_CHOICES = [
 ]
 
 class VaultItemCreate(BaseModel):
+    """创建保险箱条目请求"""
     title: str
     category: str = "other"
     sub_category: str = ""
@@ -20,6 +21,7 @@ class VaultItemCreate(BaseModel):
     is_legacy: bool = False
 
 class VaultItemUpdate(BaseModel):
+    """更新保险箱条目请求（所有字段可选）"""
     title: Optional[str] = None
     category: Optional[str] = None
     sub_category: Optional[str] = None
@@ -32,6 +34,7 @@ class VaultItemUpdate(BaseModel):
     is_legacy: Optional[bool] = None
 
 class VaultItemResponse(BaseModel):
+    """保险箱条目响应"""
     id: str
     user_id: str
     title: str

@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class DeliveryLog(Base):
+    """交付日志模型：记录生命开关触发后向受益人交付信息的操作"""
     __tablename__ = "delivery_logs"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

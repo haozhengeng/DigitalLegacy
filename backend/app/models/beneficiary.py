@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class Beneficiary(Base):
+    """受益人模型：存储受益人的身份信息、权限分配及认证状态"""
     __tablename__ = "beneficiaries"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

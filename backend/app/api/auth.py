@@ -18,6 +18,7 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
 async def register(data: UserCreate, db: AsyncSession = Depends(get_db)):
+    """用户注册：创建账号及默认生命开关配置，返回 JWT"""
     existing = await db.execute(
         select(User).where((User.email == data.email) | (User.username == data.username))
     )
@@ -45,6 +46,7 @@ async def register(data: UserCreate, db: AsyncSession = Depends(get_db)):
 
 @router.post("/login", response_model=TokenResponse)
 async def login(data: UserLogin, db: AsyncSession = Depends(get_db)):
+    """用户登录：验证邮箱密码，返回 JWT"""
     result = await db.execute(select(User).where(User.email == data.email))
     user = result.scalar_one_or_none()
     if not user or not verify_password(data.password, user.hashed_password):
@@ -59,11 +61,13 @@ async def login(data: UserLogin, db: AsyncSession = Depends(get_db)):
 
 @router.get("/me", response_model=UserResponse)
 async def get_me(current_user: User = Depends(get_current_user)):
+    """获取当前登录用户信息"""
     return UserResponse.model_validate(current_user)
 
 
 @router.put("/me", response_model=UserResponse)
 async def update_me(data: UserUpdate, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """更新当前用户资料"""
     update_data = data.model_dump(exclude_unset=True)
     for key, value in update_data.items():
         setattr(current_user, key, value)
@@ -74,6 +78,7 @@ async def update_me(data: UserUpdate, current_user: User = Depends(get_current_u
 
 @router.post("/mfa/enable", response_model=UserResponse)
 async def enable_mfa(data: MFAEnable, current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """开启多因子认证（MFA）"""
     current_user.is_mfa_enabled = True
     current_user.mfa_secret = data.secret
     await db.commit()
@@ -83,6 +88,7 @@ async def enable_mfa(data: MFAEnable, current_user: User = Depends(get_current_u
 
 @router.post("/mfa/disable", response_model=UserResponse)
 async def disable_mfa(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """关闭多因子认证（MFA）"""
     current_user.is_mfa_enabled = False
     current_user.mfa_secret = ""
     await db.commit()

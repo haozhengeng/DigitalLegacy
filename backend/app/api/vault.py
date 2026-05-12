@@ -18,6 +18,7 @@ async def list_items(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取保险箱列表，支持按分类筛选"""
     query = select(VaultItem).where(VaultItem.user_id == current_user.id)
     if category:
         query = query.where(VaultItem.category == category)
@@ -32,6 +33,7 @@ async def create_item(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """创建保险箱条目"""
     item = VaultItem(**data.model_dump(exclude={"encrypted_content"}), user_id=current_user.id)
     item.encrypted_content = data.encrypted_content
     db.add(item)
@@ -46,6 +48,7 @@ async def get_item(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """获取单个保险箱条目详情"""
     result = await db.execute(
         select(VaultItem).where(VaultItem.id == item_id, VaultItem.user_id == current_user.id)
     )
@@ -62,6 +65,7 @@ async def update_item(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """更新保险箱条目"""
     result = await db.execute(
         select(VaultItem).where(VaultItem.id == item_id, VaultItem.user_id == current_user.id)
     )
@@ -82,6 +86,7 @@ async def delete_item(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
+    """删除保险箱条目"""
     result = await db.execute(
         select(VaultItem).where(VaultItem.id == item_id, VaultItem.user_id == current_user.id)
     )

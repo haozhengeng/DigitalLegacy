@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class TriggerLog(Base):
+    """触发事件日志模型：记录安全打卡、预警触发、紧急撤回等操作"""
     __tablename__ = "trigger_logs"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

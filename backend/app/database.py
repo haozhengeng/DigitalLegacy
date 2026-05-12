@@ -8,10 +8,12 @@ async_session = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit
 
 
 class Base(DeclarativeBase):
+    """SQLAlchemy 声明式基类，所有模型继承此类"""
     pass
 
 
 async def get_db():
+    """FastAPI 依赖注入：获取异步数据库会话"""
     async with async_session() as session:
         try:
             yield session
@@ -20,6 +22,7 @@ async def get_db():
 
 
 async def init_db():
+    """初始化数据库：导入所有模型并创建表结构"""
     from app.models.user import User
     from app.models.vault_item import VaultItem
     from app.models.emotional_file import EmotionalFile

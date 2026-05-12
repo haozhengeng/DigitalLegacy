@@ -4,6 +4,7 @@ from pydantic import BaseModel, EmailStr
 
 
 class BeneficiaryCreate(BaseModel):
+    """创建受益人请求"""
     name: str
     email: EmailStr
     phone: str = ""
@@ -14,6 +15,7 @@ class BeneficiaryCreate(BaseModel):
     notes: str = ""
 
 class BeneficiaryUpdate(BaseModel):
+    """更新受益人请求（所有字段可选）"""
     name: Optional[str] = None
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
@@ -24,9 +26,11 @@ class BeneficiaryUpdate(BaseModel):
     notes: Optional[str] = None
 
 class BeneficiaryVerify(BaseModel):
+    """受益人实名认证请求"""
     id_number: str
 
 class BeneficiaryResponse(BaseModel):
+    """受益人信息响应"""
     id: str
     user_id: str
     name: str

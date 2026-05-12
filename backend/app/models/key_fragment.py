@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class KeyFragment(Base):
+    """密钥分片模型：存储密钥拆分后的分片信息，支持物理/数字双重存储"""
     __tablename__ = "key_fragments"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))

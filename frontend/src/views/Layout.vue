@@ -1,5 +1,6 @@
 <template>
   <el-container class="layout-container">
+    <!-- 桌面端侧边栏导航 -->
     <el-aside :width="isMobile ? '0' : '240px'" class="sidebar" :class="{ 'sidebar-hidden': isMobile }">
       <div class="logo">
         <el-icon :size="24"><Collection /></el-icon>
@@ -28,6 +29,7 @@
     </el-aside>
 
     <el-container>
+      <!-- 顶部导航栏 -->
       <el-header class="header">
         <div class="header-left">
           <el-button v-if="isMobile" text class="menu-btn" @click="drawerVisible = true">
@@ -42,11 +44,13 @@
           </el-button>
         </div>
       </el-header>
+      <!-- 主内容区域 -->
       <el-main class="main-content">
         <router-view />
       </el-main>
     </el-container>
 
+    <!-- 移动端抽屉导航 -->
     <el-drawer
       v-model="drawerVisible"
       direction="ltr"

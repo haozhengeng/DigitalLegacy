@@ -9,6 +9,7 @@ from app.api import auth, vault, emotional, beneficiaries, trigger
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """应用生命周期管理：启动时初始化数据库表"""
     await init_db()
     yield
 
@@ -32,9 +33,11 @@ app.include_router(trigger.router)
 
 @app.get("/")
 async def root():
+    """API 根路径，返回服务信息"""
     return {"message": "DigitalLegacy API v2 - 数字遗产管家", "version": "2.0.0"}
 
 
 @app.get("/health")
 async def health():
+    """健康检查接口"""
     return {"status": "ok"}

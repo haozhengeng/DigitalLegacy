@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class EmotionalFileCreate(BaseModel):
+    """创建情感档案请求"""
     title: str
     file_type: str
     encrypted_content: str = ""
@@ -11,10 +12,12 @@ class EmotionalFileCreate(BaseModel):
     recipient_beneficiary_id: Optional[str] = None
 
 class EmotionalFileUpdate(BaseModel):
+    """更新情感档案请求"""
     title: Optional[str] = None
     recipient_beneficiary_id: Optional[str] = None
 
 class EmotionalFileResponse(BaseModel):
+    """情感档案响应"""
     id: str
     user_id: str
     title: str

@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class TriggerConfigUpdate(BaseModel):
+    """更新生命开关配置请求（所有字段可选）"""
     is_enabled: Optional[bool] = None
     inactivity_days: Optional[int] = None
     check_in_interval_days: Optional[int] = None
@@ -12,6 +13,7 @@ class TriggerConfigUpdate(BaseModel):
     alert_t7_contact: Optional[bool] = None
 
 class TriggerConfigResponse(BaseModel):
+    """生命开关配置响应"""
     id: str
     user_id: str
     is_enabled: bool
@@ -31,10 +33,12 @@ class TriggerConfigResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 class CheckInResponse(BaseModel):
+    """安全打卡响应"""
     message: str
     last_check_in: datetime
 
 class TriggerLogResponse(BaseModel):
+    """触发事件日志响应"""
     id: str
     user_id: str
     event_type: str
@@ -45,10 +49,12 @@ class TriggerLogResponse(BaseModel):
     model_config = {"from_attributes": True}
 
 class EmergencyRecallResponse(BaseModel):
+    """紧急撤回响应"""
     message: str
     is_emergency_recalled: bool
 
 class TriggerStatusResponse(BaseModel):
+    """生命开关状态响应"""
     is_triggered: bool
     is_emergency_recalled: bool
     days_since_last_checkin: int

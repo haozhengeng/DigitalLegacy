@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard">
+    <!-- 欢迎卡片 + 打卡状态 -->
     <div class="welcome-card">
       <h2>守护你的数字生命</h2>
       <p>数字遗产管家帮你安全托管数字资产，在合适的时机传递给重要的人。</p>
@@ -12,6 +13,7 @@
       </div>
     </div>
 
+    <!-- 统计卡片 -->
     <el-row :gutter="[16, 16]">
       <el-col :xs="12" :sm="12" :md="6" v-for="stat in stats" :key="stat.label">
         <el-card shadow="hover" class="stat-card" @click="$router.push(stat.path)">
@@ -22,6 +24,7 @@
       </el-col>
     </el-row>
 
+    <!-- 最近添加 + 快捷操作 -->
     <el-row :gutter="[16, 16]" style="margin-top: 16px">
       <el-col :xs="24" :sm="24" :md="14">
         <el-card class="section-card">

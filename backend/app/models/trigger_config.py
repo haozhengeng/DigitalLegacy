@@ -7,6 +7,7 @@ from app.database import Base
 
 
 class TriggerConfig(Base):
+    """生命开关配置模型：管理安全打卡周期、预警通知策略和触发状态"""
     __tablename__ = "trigger_configs"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
