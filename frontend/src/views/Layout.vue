@@ -15,7 +15,7 @@
       >
         <el-menu-item index="/"><el-icon><Odometer /></el-icon><span>总览面板</span></el-menu-item>
         <el-menu-item index="/vault"><el-icon><Lock /></el-icon><span>保险箱</span></el-menu-item>
-        <el-menu-item index="/emotional"><el-icon><Heart /></el-icon><span>情感档案</span></el-menu-item>
+          <el-menu-item index="/emotional"><el-icon><ChatDotSquare /></el-icon><span>情感档案</span></el-menu-item>
         <el-menu-item index="/beneficiaries"><el-icon><UserFilled /></el-icon><span>受益人</span></el-menu-item>
         <el-menu-item index="/trigger"><el-icon><AlarmClock /></el-icon><span>生命开关</span></el-menu-item>
         <el-menu-item index="/settings"><el-icon><Setting /></el-icon><span>安全设置</span></el-menu-item>
@@ -70,7 +70,7 @@
         >
           <el-menu-item index="/"><el-icon><Odometer /></el-icon><span>总览面板</span></el-menu-item>
           <el-menu-item index="/vault"><el-icon><Lock /></el-icon><span>保险箱</span></el-menu-item>
-          <el-menu-item index="/emotional"><el-icon><Heart /></el-icon><span>情感档案</span></el-menu-item>
+        <el-menu-item index="/emotional"><el-icon><ChatDotSquare /></el-icon><span>情感档案</span></el-menu-item>
           <el-menu-item index="/beneficiaries"><el-icon><UserFilled /></el-icon><span>受益人</span></el-menu-item>
           <el-menu-item index="/trigger"><el-icon><AlarmClock /></el-icon><span>生命开关</span></el-menu-item>
           <el-menu-item index="/settings"><el-icon><Setting /></el-icon><span>安全设置</span></el-menu-item>
